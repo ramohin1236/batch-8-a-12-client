@@ -3,7 +3,7 @@ import { FaAccessibleIcon, FaAddressCard, FaArrowRight, FaEdit, FaHome, FaList, 
 
 const Dashboard = () => {
 
-    const isAdmin = false;
+    const isAdmin = true;
 
     return (
         <div >

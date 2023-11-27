@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Authentication/AuthProvider";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const image_key = import.meta.env.VITE_image_key;
 
@@ -12,7 +12,7 @@ const image_api= `https://api.imgbb.com/1/upload?key=${image_key}`
 
 const Admin = () => {
     const axiosPublic = usePublicAxios()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 const {createUser,updateUserProfile,loading}= useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit =async(data) => {
@@ -67,7 +67,7 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        // navigate('/payment');
+                        navigate('/dashboard/home');
     
                     })
                     .catch(error => console.log(error))
