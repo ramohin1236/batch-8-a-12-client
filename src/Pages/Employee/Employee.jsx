@@ -16,25 +16,42 @@ const image_api= `https://api.imgbb.com/1/upload?key=${image_key}`
 
 const Employee = () => {
 const axiosPublic = usePublicAxios()
-const {createUser,updateUserProfile}= useContext(AuthContext)
+const {createUser,updateUserProfile,loading}= useContext(AuthContext)
 
 const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
 const onSubmit =async(data) => {
-    console.log(data)
+    // console.log(data)
     const imageFile = { image: data.image[0] }
-    console.log(imageFile)
+    // console.log(imageFile)
     const res = await axiosPublic.post(image_api, imageFile, {
         headers: {
             'content-type': 'multipart/form-data'
         }
     })
+    
+    const userInfo ={
+        name: data.name,
+        email: data.email,
+        date:data.date,
+        
+        
+    }
+    console.log(userInfo)
+
+    axiosPublic.post('/users', userInfo)
+    .then((data)=>{
+    //   console.log(data)
+    })
 
 
     createUser(data.email, data.password)
         .then(result => {
+
+              
             const loggedUser = result.user;
+            // console.log(loggedUser)
         
             updateUserProfile(data.name, res.data.data.display_url)
                 .then(() => {
@@ -138,7 +155,16 @@ const onSubmit =async(data) => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <input className="btn btn-primary" type="submit" value="Join to employee" />
+                <button 
+               onSubmit={handleSubmit(onSubmit)}
+                className="btn btn-primary" >
+                    {loading? <span className="loading loading-spinner text-secondary"></span>
+                          :
+                          "join to employee"
+                          }
+                  </button>
+                {/* <input className="btn btn-primary" type="submit" value="Join to employee" /> */}
+                  
             
               </div>
           <p className="text-xl text-red-600">{errors.errorMessage}</p>

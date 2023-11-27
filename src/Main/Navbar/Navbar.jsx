@@ -1,7 +1,21 @@
 import { NavLink } from "react-router-dom";
 import Container from "../../SharredClass/Container";
+import { useContext } from "react";
+import { AuthContext } from "../../Authentication/AuthProvider";
+
 
 const Navbar = () => {
+    const { logOut,user}= useContext(AuthContext)
+
+   
+    const handleLogout=()=>{
+        logOut()
+        .then(() => { })
+        .catch(error => console.log(error));
+    }
+
+
+
 
     const navOptions = <>
 
@@ -25,12 +39,20 @@ const Navbar = () => {
         <button className=" mr-2 p-4 font-semibold"> Join as HR/Admin</button>
 
         </NavLink>
-        <NavLink to='/authentication/login' className={({ isActive}) =>
-     isActive ? "text-blue-400 font-bold text-lg" : "text-black"
-  }>
-        <button className="mr-2 p-4 font-semibold">Login</button>
-
-        </NavLink>
+     {
+        user? <button 
+        onClick={handleLogout}
+        className="btn btn-sm mt-3 mr-2 font-semibold">Log out</button>
+       :
+       <NavLink to='/authentication/login' className={({ isActive}) =>
+       isActive ? "text-blue-400 font-bold text-lg" : "text-black"
+    }>
+          <button
+     
+          className="mr-2 p-4 font-semibold">Login</button>
+  
+          </NavLink>
+    }
 
     </>
 
