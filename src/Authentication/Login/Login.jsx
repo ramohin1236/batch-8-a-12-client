@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 
 
@@ -70,6 +71,7 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
+                <SocialLogin/>
               </div>
             </form>
           </div>

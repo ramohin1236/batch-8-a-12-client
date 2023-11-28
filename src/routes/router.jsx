@@ -20,6 +20,8 @@ import MyAssets from "../Dashboard/Employee/MyAssets";
 import RqestForAsset from "../Dashboard/Employee/RqestForAsset";
 import MakeCustome from "../Dashboard/Employee/MakeCustome";
 import Profile from "../Dashboard/Employee/Profile";
+import Payment from "../Payment/Payment";
+import PrivateRoute from "../Authentication/PrivateRoute/PrivateRoute";
 // import Payment from "../Payment/Payment";
 
 
@@ -32,10 +34,10 @@ export const router = createBrowserRouter([
             path: '/',
             element: <Home/>
         },
-        // {
-        //     path: '/payment',
-        //     element: <Payment/>
-        // }
+        {
+            path: '/payment',
+            element: <Payment/>
+        }
        
       
         
@@ -45,7 +47,7 @@ export const router = createBrowserRouter([
 
      {
         path:'/dashboard',
-        element:<Dashboard/>,
+        element:<PrivateRoute><Dashboard/></PrivateRoute>,
         children:[
             {
               path: 'home',
@@ -107,10 +109,7 @@ export const router = createBrowserRouter([
        element: <AuthOutlet/>,
        children:[
 
-        // {
-        //     path: '/authentication/login',
-        //     element: <Login/>
-        // },
+     
         {
             path: 'employee',
             element: <Employee/>

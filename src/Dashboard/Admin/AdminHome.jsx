@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Authentication/AuthProvider";
+import useCarts from "../../hooks/useCarts";
 
 
 const AdminHome = () => {
     const { user } = useContext(AuthContext)
+    const [cart]=useCarts()
+    console.log(cart)
     return (
         <div >
           <div className="flex justify-evenly"> 

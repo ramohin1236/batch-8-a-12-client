@@ -33,7 +33,8 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
             date:data.date,
             cName: data.companyName,
             image: res.data.data.display_url,
-            package: data.package
+            package: data.package,
+            role: data.role
 
             
             
@@ -67,7 +68,7 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        navigate('/dashboard/home');
+                        navigate('/payment');
     
                     })
                     .catch(error => console.log(error))
@@ -129,7 +130,20 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
 
                     </div>
                    
-         
+          {/* company name */}
+          <div className="form-control w-full my-6">
+                        <label className="label">
+                            <span className="label-text">Role</span>
+                        </label>
+                        <select defaultValue='default' {...register('role',{required: true})}
+                            className="select select-bordered w-full ">
+                            <option disabled value='default'>Select Role</option>
+                            <option value="admin">Admin</option>
+                       
+                           
+                        </select>
+
+                    </div>
            
               {/* date of birth */}
               <div className="form-control">

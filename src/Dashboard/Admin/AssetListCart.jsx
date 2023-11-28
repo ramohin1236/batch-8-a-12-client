@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import usePublicAxios from '../../hooks/usePublicAxios';
 import useCarts from '../../hooks/useCarts';
+import useSecureAxios from '../../hooks/useSecureAxios';
 
 const AssetListCart = ({item}) => {
     const [cart,refetch]= useCarts()
-    const axiosPublic = usePublicAxios()
+    const axiosSecure = useSecureAxios()
     console.log(item)
+    // console.log("cart",cart)
     const {image,productName,published_date,quantity,type}=item
 
 
@@ -22,7 +24,7 @@ const AssetListCart = ({item}) => {
             confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
-                axiosPublic.delete(`/addProduct/${id}`)
+                axiosSecure.delete(`/addProduct/${id}`)
             .then(res=>{
                 if(res.data.deletedCount > 0){{
                     refetch()

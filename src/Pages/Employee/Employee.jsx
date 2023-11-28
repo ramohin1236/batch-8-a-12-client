@@ -5,6 +5,8 @@ import usePublicAxios from "../../hooks/usePublicAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../Authentication/AuthProvider";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import SocialLogin from "../../Authentication/SocialLogin/SocialLogin";
 
 
 
@@ -20,6 +22,7 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
 
 const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
+const navigate = useNavigate()
 
 const onSubmit =async(data) => {
     // console.log(data)
@@ -64,7 +67,7 @@ const onSubmit =async(data) => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    // navigate('/');
+                    navigate('/dashboard/employeehome');
 
                 })
                 .catch(error => console.log(error))
@@ -164,7 +167,7 @@ const onSubmit =async(data) => {
                           }
                   </button>
                 {/* <input className="btn btn-primary" type="submit" value="Join to employee" /> */}
-                  
+                  <SocialLogin/>
             
               </div>
           <p className="text-xl text-red-600">{errors.errorMessage}</p>

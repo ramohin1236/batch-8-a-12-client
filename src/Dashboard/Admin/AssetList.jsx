@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext } from "react";
 import usePublicAxios from "../../hooks/usePublicAxios";
 import AssetListCart from "./AssetListCart";
 import AdminName from "../../SharredComp/AdminName";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Authentication/AuthProvider";
 import useCarts from "../../hooks/useCarts";
-;
+
 
 const AssetList = () => {
-    // const [assets, setAssets]=useState([])
     const {loading,user}= useContext(AuthContext)
      const [cart, refetch]=useCarts()
     const publicAxios =usePublicAxios()
