@@ -4,6 +4,7 @@ import { AuthContext } from "../../Authentication/AuthProvider";
 import usePublicAxios from "../../hooks/usePublicAxios";
 import toast from "react-hot-toast";
 import AdminName from "../../SharredComp/AdminName";
+import useSecureAxios from "../../hooks/useSecureAxios";
 
 
 
@@ -16,7 +17,8 @@ const image_api= `https://api.imgbb.com/1/upload?key=${image_key}`
 
 
 const AddAsset = () => {
-    const axiosPublic = usePublicAxios()
+    const axiosSecure = useSecureAxios()
+    const axiosPublic=usePublicAxios()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
    const {user, loading}=useContext(AuthContext)
     const onSubmit =async(data) => {
@@ -38,7 +40,7 @@ const AddAsset = () => {
 
        }
 
-       await axiosPublic.post('/addProduct', info)
+       await axiosSecure.post('/addProduct', info)
        .then(data=>{
         reset()
         if(data.data.insertedId){

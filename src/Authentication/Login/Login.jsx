@@ -3,14 +3,23 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import toast from "react-hot-toast";
+// import useAdmin from "../../hooks/useAdmin";
 
 
 
 
 const Login = () => {
-    <Helmet>
-        <title> asset || Sign in</title>
-    </Helmet>
+    // const employee = "/dashboard/employeehome";
+    // const admin = "/dashboard/home";
+    
+    //   const navigate= useNavigate();
+    //   const [isAdmin]= useAdmin();
+    //   const location= useLocation();
+    //   const from =location.state?.from?.pathname || '/'
+
+  
+    
  
  const {signInUser}= useContext(AuthContext)
 
@@ -25,15 +34,24 @@ const Login = () => {
     signInUser(email,password)
     .then(result=>{
         const user = result.user
+         toast.success("Congratulation")
+       
         console.log(user)
+        
       
     })
-         
+    // {isAdmin ? 
+    //     navigate('/dashboard/home') :
+    //     navigate('/dashboard/employeehome')
+    // } 
 
  }
     
     return (
         <div className="hero min-h-screen bg-base-200">
+              <Helmet>
+        <title> asset || Sign in</title>
+    </Helmet>
         <div className="hero-content flex-col ">
 
           {/* button */}

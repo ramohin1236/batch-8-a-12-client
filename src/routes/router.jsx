@@ -22,6 +22,7 @@ import MakeCustome from "../Dashboard/Employee/MakeCustome";
 import Profile from "../Dashboard/Employee/Profile";
 import Payment from "../Payment/Payment";
 import PrivateRoute from "../Authentication/PrivateRoute/PrivateRoute";
+import AdminPrivateRoute from "../Authentication/PrivateRoute/AdminPrivateRoute";
 // import Payment from "../Payment/Payment";
 
 
@@ -51,31 +52,31 @@ export const router = createBrowserRouter([
         children:[
             {
               path: 'home',
-              element: <AdminHome/>
+              element: <AdminPrivateRoute><AdminHome/></AdminPrivateRoute>
             },
             {
               path: 'list',
-              element: <EmployeeList/>
+              element: <AdminPrivateRoute><EmployeeList/></AdminPrivateRoute>
             },
             {
               path: 'addEmployee',
-              element: <AddEmployee/>
+              element: <AdminPrivateRoute><AddEmployee/></AdminPrivateRoute>
             },
             {
               path: 'assetlist',
-              element: <AssetList/>
+              element: <AdminPrivateRoute><AssetList/></AdminPrivateRoute>
             },
             {
               path: 'addasset',
-              element: <AddAsset/>
+              element: <AdminPrivateRoute><AddAsset/></AdminPrivateRoute>
             },
             {
               path: 'allr',
-              element: <AllRequest/>
+              element: <AdminPrivateRoute><AllRequest/></AdminPrivateRoute>
             },
             {
               path: 'cmr',
-              element: <CustomeRequest/>
+              element: <AdminPrivateRoute><CustomeRequest/></AdminPrivateRoute>
             },
             {
                 path:'employeehome',

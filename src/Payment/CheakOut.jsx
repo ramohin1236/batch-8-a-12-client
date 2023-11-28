@@ -1,17 +1,23 @@
+
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
-import usePublicAxios from "../hooks/usePublicAxios";
+import { useContext, useEffect, useState } from "react";
+
 import usePaymentCart from "../hooks/usePaymentCart";
+import useSecureAxios from "../hooks/useSecureAxios";
+import { AuthContext } from "../Authentication/AuthProvider";
+import toast from "react-hot-toast";
 
 
 
 const CheakOut = () => {
     const stripe = useStripe()
+    const {user}=useContext(AuthContext)
     const elements = useElements()
     const [clientSecret, setClientSecret]=useState('')
+    const [transactionid, setTransictionId]=useState('')
     const [error, setError]= useState('')
-    const axiosPublic=usePublicAxios()
-    const [cart]=usePaymentCart()
+    const axiosSecure=useSecureAxios()
+    const [cart, ,refetch]=usePaymentCart()
    
     
         const totalPrice =cart.reduce((total,item)=>total+item.package,0)
@@ -26,7 +32,7 @@ const CheakOut = () => {
 
     useEffect(()=>{
         if(price >0){
-            axiosPublic.post('/create-payment-intent',{package:price})
+            axiosSecure.post('/create-payment-intent',{package:price})
             .then(res=>{
                 if(price> 0){
                     setClientSecret(res.data.clientSecret)
@@ -36,7 +42,7 @@ const CheakOut = () => {
             })
         }
         
-    },[axiosPublic,price])
+    },[axiosSecure,price])
 
 
 
@@ -50,6 +56,9 @@ const CheakOut = () => {
                if(card === null){
                 return
                }
+
+
+          
         const {error, paymentMethod}= await stripe.createPaymentMethod({
             type: 'card',
             card
@@ -59,10 +68,61 @@ const CheakOut = () => {
             setError(error.message)
         }
         else{
-            console.log('payment methosd',paymentMethod);
+            console.log('payment method',paymentMethod);
             setError('')
         }
+
+
+
+
+          //    payment confirm
+
+
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous'
+                }
+            }
+        })
+        if (confirmError) {
+            console.log('confirm error')
+        }
+        else {
+            console.log('payment intent', paymentIntent)
+
+            if(paymentIntent.status === 'succeeded'){
+                console.log('transaction id', paymentIntent.id)
+                setTransictionId(paymentIntent.id)
+
+                // now save payment histroty in database
+                const payment= {
+                    email: user.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(), //utc date convert. use moment js 
+                    cartIds: cart.map(item=>item._id),
+                    menuItemIds: cart.map(item=>item.menuId),
+                    status: 'pending'
+                }
+               const res= await axiosSecure.post('/payment',payment)
+               refetch()
+
+               console.log("Payment save",res.data.paymentResult.insertedId)
+               if(res.data?.paymentResult?.insertedId){
+                toast.success('payment success')
+
+               }
+            }
+          }
     }
+
+
+
+  
+
     
     return (
         <form onSubmit={handleSubmit
@@ -86,6 +146,7 @@ const CheakOut = () => {
       <button className="btn btn-secondary mt-4" type="submit" disabled={!stripe || !clientSecret}>
         Pay
       </button>
+      {transactionid && <p className="text-blue-600">transactionId: {transactionid}</p>}
       <p className="text-red-600">{error}</p>
         </form>
     );
