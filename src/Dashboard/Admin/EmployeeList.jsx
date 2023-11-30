@@ -1,8 +1,12 @@
 
+
 const EmployeeList = () => {
+    
+   
+
     return (
         <div>
-            <p>Employee list</p>
+            <p>employee list</p>
         </div>
     );
 };

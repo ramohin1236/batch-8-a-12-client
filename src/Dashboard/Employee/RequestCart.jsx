@@ -14,7 +14,7 @@ const RequestCart = ({ product }) => {
     // console.log("emailll",{email})
     const axiosSecure = useSecureAxios()
 
-    const handleSubmit =(e)=>{
+    const handleSubmit =async(e)=>{
             e.preventDefault()
             const form = e.target;
             const userName = form.name.value;
@@ -28,7 +28,7 @@ const RequestCart = ({ product }) => {
             const info ={ userName,userImage,from,email,productName,productPhoto,type}
             console.log("info valona",info,email)
            
-        axiosSecure.post('/request', info)
+            await axiosSecure.post('/request', info)
             .then(res=>{
                 if(res.data.insertedId){
                     form.reset()

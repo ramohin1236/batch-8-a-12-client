@@ -23,6 +23,7 @@ import Profile from "../Dashboard/Employee/Profile";
 import Payment from "../Payment/Payment";
 import PrivateRoute from "../Authentication/PrivateRoute/PrivateRoute";
 import AdminPrivateRoute from "../Authentication/PrivateRoute/AdminPrivateRoute";
+import PaymentHistory from "../Dashboard/Admin/PaymentHistory";
 // import Payment from "../Payment/Payment";
 
 
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
             {
               path: 'addasset',
               element: <AdminPrivateRoute><AddAsset/></AdminPrivateRoute>
+            },
+            {
+              path: 'payment',
+              element: <AdminPrivateRoute><PaymentHistory/></AdminPrivateRoute>
             },
             {
               path: 'allr',

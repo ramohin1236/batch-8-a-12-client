@@ -17,7 +17,7 @@ const CheakOut = () => {
     const [transactionid, setTransictionId]=useState('')
     const [error, setError]= useState('')
     const axiosSecure=useSecureAxios()
-    const [cart, ,refetch]=usePaymentCart()
+    const [cart, refetch]=usePaymentCart()
    
     
         const totalPrice =cart.reduce((total,item)=>total+item.package,0)
@@ -97,21 +97,22 @@ const CheakOut = () => {
                 console.log('transaction id', paymentIntent.id)
                 setTransictionId(paymentIntent.id)
 
-                // now save payment histroty in database
+             
                 const payment= {
                     email: user.email,
                     price: totalPrice,
                     transactionId: paymentIntent.id,
-                    date: new Date(), //utc date convert. use moment js 
-                    cartIds: cart.map(item=>item._id),
-                    menuItemIds: cart.map(item=>item.menuId),
+                    date: new Date(),  
+                    
                     status: 'pending'
                 }
-               const res= await axiosSecure.post('/payment',payment)
+               const res= await axiosSecure.post('/paymentns',payment)
+               console.log("payments secret",res.data)
                refetch()
 
-               console.log("Payment save",res.data.paymentResult.insertedId)
-               if(res.data?.paymentResult?.insertedId){
+
+            //    console.log("Payment save",res.data.paymentResult.insertedId)
+               if(res.data?.insertedId){
                 toast.success('payment success')
 
                }

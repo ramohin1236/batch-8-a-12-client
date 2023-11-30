@@ -55,6 +55,11 @@ const Dashboard = () => {
                         isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
                     } to='/dashboard/cmr'><FaEdit />
                     Custom requests</NavLink></li>
+                    {/* 8no */}
+                    <li className="py-4"><NavLink className={({ isActive }) =>
+                        isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
+                    } to='/dashboard/payment'><FaEdit />
+                   Payment History</NavLink></li>
                     </>)
                        
                     

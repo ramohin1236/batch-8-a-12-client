@@ -122,9 +122,9 @@ const {createUser,updateUserProfile,loading}= useContext(AuthContext)
                         <select defaultValue='default' {...register('package',{required: true})}
                             className="select select-bordered w-full ">
                             <option disabled value='default'>Select a Package</option>
-                            <option value="5">5 Members for $5</option>
-                            <option value="8">10 Members for $8</option>
-                            <option value="15">20 Members for $15</option>
+                            <option value={5}>5 Members for $5</option>
+                            <option value={8}>10 Members for $8</option>
+                            <option value={15}>20 Members for $15</option>
                            
                         </select>
 

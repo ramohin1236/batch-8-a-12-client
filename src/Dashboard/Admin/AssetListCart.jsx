@@ -13,7 +13,11 @@ const AssetListCart = ({item}) => {
     const {image,productName,published_date,quantity,type}=item
 
 
+    
+    
     const handleDelete =(id)=>{
+        console.log(id)
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -24,7 +28,7 @@ const AssetListCart = ({item}) => {
             confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/addProduct/${id}`)
+            axiosSecure.delete(`/deleteEmployee/${id}`)
             .then(res=>{
                 if(res.data.deletedCount > 0){{
                     refetch()
