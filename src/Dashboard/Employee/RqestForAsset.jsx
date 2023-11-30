@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import RequestCart from "./RequestCart";
 
@@ -7,10 +7,12 @@ const RqestForAsset = () => {
 
     const axiosSecure = useSecureAxios()
      const [products, setProducts]=useState([])
-    axiosSecure.get('/hrasset')
+    useEffect(()=>{
+        axiosSecure.get('/hrasset')
     .then(res=>{
         setProducts(res.data);
     })
+    },[axiosSecure])
 
     return (
        <div>

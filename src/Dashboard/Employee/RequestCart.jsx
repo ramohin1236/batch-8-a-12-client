@@ -6,9 +6,10 @@ import useSecureAxios from './../../hooks/useSecureAxios';
 import Swal from "sweetalert2";
 
 
+
 const RequestCart = ({ product }) => {
 
-
+console.log(product)
     const { image, type, quantity, productName, email } = product
     const { user } = useContext(AuthContext)
     // console.log("emailll",{email})
@@ -22,10 +23,10 @@ const RequestCart = ({ product }) => {
             const from = form.from.value;
             const email = form.to.value;
             const productName = form.productName.value;
-            const productPhoto = form.productPhoto.value;
+          
             const type = form.type.value;
 
-            const info ={ userName,userImage,from,email,productName,productPhoto,type}
+            const info ={ userName,userImage,from,email,productName,type}
             console.log("info valona",info,email)
            
             await axiosSecure.post('/request', info)
@@ -109,7 +110,7 @@ const RequestCart = ({ product }) => {
                     {/* ----3---- */}
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
-                            <span className="label-text text-red-600">To</span>
+                            <span className="label-text text-red-600">To*</span>
 
                         </div>
                         <input name='to' type="text" placeholder="write here to owner email" className="input input-bordered w-full max-w-xs" required />
@@ -118,30 +119,23 @@ const RequestCart = ({ product }) => {
                     {/* ----3---- */}
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
-                            <span className="label-text">Product Name</span>
+                            <span className="label-text text-red-600">Product Name*</span>
 
                         </div>
-                        <input name='productName' type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={productName} readOnly />
+                        <input name='productName' type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs"  required/>
 
                     </label>
                     {/* ----3---- */}
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
-                            <span className="label-text">Product Name</span>
+                            <span className="label-text text-red-500">Product Type*</span>
 
                         </div>
-                        <input name='type' type="type" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={type} readOnly />
+                        <input name='type' type="type" placeholder="Type here" className="input input-bordered w-full max-w-xs" required />
 
-                    </label>
+                     </label>
 
-                    <label className="form-control w-full max-w-xs">
-                        <div className="label">
-                            <span className="label-text">Product Image</span>
-                 
-                        </div>
-                        <input defaultValue={image} name='productPhoto' type="text" className="file-input file-input-bordered w-full max-w-xs" readOnly />
-                        
-                    </label>
+                  
                     
                             {/* if there is a button in form, it will close the modal */}
                             <button  type="submit" className="btn mt-6" >Request</button>

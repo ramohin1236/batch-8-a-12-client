@@ -6,6 +6,7 @@ import usePaymentCart from "../hooks/usePaymentCart";
 import useSecureAxios from "../hooks/useSecureAxios";
 import { AuthContext } from "../Authentication/AuthProvider";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,6 +19,7 @@ const CheakOut = () => {
     const [error, setError]= useState('')
     const axiosSecure=useSecureAxios()
     const [cart, refetch]=usePaymentCart()
+    const navigate=useNavigate()
    
     
         const totalPrice =cart.reduce((total,item)=>total+item.package,0)
@@ -114,6 +116,7 @@ const CheakOut = () => {
             //    console.log("Payment save",res.data.paymentResult.insertedId)
                if(res.data?.insertedId){
                 toast.success('payment success')
+                navigate('/dashboard/home')
 
                }
             }

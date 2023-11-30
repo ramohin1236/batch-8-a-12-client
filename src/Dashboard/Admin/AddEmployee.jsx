@@ -1,58 +1,75 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import useCarts from "../../hooks/useCarts";
-import toast from "react-hot-toast";
-import Swal from "sweetalert2";
+
+import { AuthContext } from "../../Authentication/AuthProvider";
+import Etable from "../Employee/Etable";
 
 
 const AddEmployee = () => {
     const axiosSecure= useSecureAxios()
-    const [employee, setEmployee]=useState([])
-    const [cart, refetch]= useCarts()
-    useEffect(()=>{
-            axiosSecure.get(`/addEmployee?email=approved`)
-            .then(res=>{
-                console.log(res.data)
-                setEmployee(res.data)
-            })
-    },[axiosSecure])
+    const [add, setadd]= useState([])
+    const [employee,setEmployee]=useState([])
 
+    const {user}= useContext(AuthContext)
+   
+ 
+    const [cart, refetch]= useCarts()
+
+    // console.log(add)
+    // useEffect(()=>{
+    //     axiosSecure.get(`paymentns?email=${user.email}`)
+    //     .then(res=>{
+    //        setPaymentMoney(res.data)
+       
+    //     })
+    //    },[axiosSecure,user.email])
+       
+    
+  
+  const handlePayment =()=>{
+
+  }
+
+
+
+
+
+  useEffect(()=>{
+    axiosSecure.get(`/addEmployee?email=approved`)
+    .then(res=>{
+       setEmployee(res.data)
+    })
+},[axiosSecure])
+
+
+    useEffect(()=>{
+        axiosSecure.get(`/paymentns?email=${user.email}`)
+        .then(res=>{
+            setadd(parseFloat(res.data[0].price))
+        })
+    },[axiosSecure,user.email])
+
+   
+   
+    
      
-    const handleDelete =(id)=>{
-        console.log(id)
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.delete(`/deleteEmployee/${id}`)
-            .then(res=>{
-                refetch()
-                console.log(res.data)
-               
-                toast.success("deleted")
-             
-            })
-           
-              
-            }
-          });
-    }
+
+   
 
     return (
         <div className="m-12">
-            <p className="text-4xl"> Members: {employee.length}</p>
-           
+            <div className="flex justify-between">
+            <p className="text-4xl"> Members: {employee.length} </p>
+              {/* <div className="text-4xl">
+              You can Add {members.length} Members
+              </div> */}
+            </div>
           <div>
           <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
-    <thead>
+    <thead className="text-lg">
       <tr>
         <th>
           <label>
@@ -61,42 +78,22 @@ const AddEmployee = () => {
         </th>
         <th>Name</th>
         <th>Job</th>
-        <th>Favorite Color</th>
+        <th>Add Employee Team</th>
+        <th>Delete</th>
         <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody className="text-lg">
       {/* row 1 */}
       
       {
-                employee.map(emp=><tr key={emp._id}>
-                    <th>
-                    <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img src={emp.userImage}alt="Avatar Tailwind CSS Component" />
-                          </div>
-                        </div>
-                    </th>
-                    <td>
-                      <div className="flex items-center gap-3">
-                       
-                        <div>
-                          <div className="font-bold">{emp.userName}</div>
-                
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                     Normal employee
-                     
-                    </td>
+                employee.map(emp=><Etable
+                    handlePayment={handlePayment}
+                    key={emp._id}
+                    add={add}
                    
-                    <th>
-                      <button
-                       onClick={()=>handleDelete(emp._id)}
-                      className="btn btn-ghost btn-xs">Remove</button>
-                    </th>
-                  </tr>)
+                emp={emp}
+                ></Etable>)
        }
       
      
@@ -108,6 +105,8 @@ const AddEmployee = () => {
 </div>
              
           </div>
+
+
         </div>
     );
 };
