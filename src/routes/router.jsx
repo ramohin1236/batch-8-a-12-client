@@ -13,7 +13,6 @@ import AddEmployee from "../Dashboard/Admin/AddEmployee";
 import AssetList from "../Dashboard/Admin/AssetList";
 import AddAsset from "../Dashboard/Admin/AddAsset";
 import AllRequest from "../Dashboard/Admin/AllRequest";
-import CustomeRequest from "../Dashboard/Admin/CustomeRequest";
 import EHome from "../Dashboard/Employee/EHome";
 import ETeam from "../Dashboard/Employee/ETeam";
 import MyAssets from "../Dashboard/Employee/MyAssets";
@@ -79,10 +78,7 @@ export const router = createBrowserRouter([
               path: 'allr',
               element: <AdminPrivateRoute><AllRequest/></AdminPrivateRoute>
             },
-            {
-              path: 'cmr',
-              element: <AdminPrivateRoute><CustomeRequest/></AdminPrivateRoute>
-            },
+           
             {
                 path:'employeehome',
                 element: <EHome/>

@@ -27,13 +27,13 @@ const Navbar = () => {
            <button className="p-4 mr-2 font-semibold"> Home</button>
 
         </NavLink >
-        <NavLink to='/authentication/employee' className={({ isActive}) =>
+        <NavLink to='/dashboard/employeehome' className={({ isActive}) =>
      isActive ? "text-blue-400 font-bold text-lg" : "text-black"
   }>
         <button className=" mr-2 p-4 font-semibold"> Join as Employee</button>
 
         </NavLink>
-        <NavLink to='/authentication/admin' className={({ isActive}) =>
+        <NavLink to='/dashboard/home' className={({ isActive}) =>
      isActive ? "text-blue-400 font-bold text-lg" : "text-black"
   }>
         <button className=" mr-2 p-4 font-semibold"> Join as HR/Admin</button>

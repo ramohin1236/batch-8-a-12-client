@@ -1,10 +1,15 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { FaAccessibleIcon, FaAddressCard, FaArrowRight, FaEdit, FaHome, FaList, FaUser,  FaUserAlt,  FaUsers } from "react-icons/fa";
 import useAdmin from "../hooks/useAdmin";
+import { useContext } from "react";
+import { AuthContext } from "../Authentication/AuthProvider";
 
 const Dashboard = () => {
-
+    const {logOut}=useContext(AuthContext)
     const [isAdmin] = useAdmin();
+   const handleLogOut =()=>{
+    logOut()
+   }
 
     return (
         <div >
@@ -60,6 +65,9 @@ const Dashboard = () => {
                         isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
                     } to='/dashboard/payment'><FaEdit />
                    Payment History</NavLink></li>
+                   <button
+                   onClick={handleLogOut}
+                   className="btn btn-sm ">Log Out</button>
                     </>)
                        
                     
@@ -70,9 +78,9 @@ const Dashboard = () => {
 
 
                     {/* for employee */}
-                       <li className="py-4"><NavLink className={({ isActive }) =>
+                       {/* <li className="py-4"><NavLink className={({ isActive }) =>
                            isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
-                       } to='/dashboard/employeehome'><FaHome/>Home</NavLink></li>
+                       } to='/dashboard/employeehome'><FaHome/>Home</NavLink></li> */}
                       
                        <li className="py-4"><NavLink className={({ isActive }) =>
                            isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
@@ -93,6 +101,9 @@ const Dashboard = () => {
                        <li className="py-4"><NavLink className={({ isActive }) =>
                            isActive ? "text-black-400 font-extrabold text-lg " : "text-black"
                        } to='/dashboard/profile'><FaUserAlt/>My Profile</NavLink></li>
+                        <button
+                   onClick={handleLogOut}
+                   className="btn btn-sm ">Log Out</button>
                      </>)
                   
                       

@@ -1,10 +1,12 @@
 
+
 const EHome = () => {
+  
+  
+
     return (
         <div>
-            <p>
-                Ehome
-            </p>
+         
         </div>
     );
 };

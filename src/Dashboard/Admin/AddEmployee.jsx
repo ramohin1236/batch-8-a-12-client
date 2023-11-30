@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
-import useCarts from "../../hooks/useCarts";
+
 
 import { AuthContext } from "../../Authentication/AuthProvider";
 import Etable from "../Employee/Etable";
@@ -13,17 +13,7 @@ const AddEmployee = () => {
 
     const {user}= useContext(AuthContext)
    
- 
-    const [cart, refetch]= useCarts()
 
-    // console.log(add)
-    // useEffect(()=>{
-    //     axiosSecure.get(`paymentns?email=${user.email}`)
-    //     .then(res=>{
-    //        setPaymentMoney(res.data)
-       
-    //     })
-    //    },[axiosSecure,user.email])
        
     
   

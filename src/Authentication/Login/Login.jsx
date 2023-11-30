@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import toast from "react-hot-toast";
@@ -10,18 +10,19 @@ import toast from "react-hot-toast";
 
 
 const Login = () => {
-    // const employee = "/dashboard/employeehome";
-    // const admin = "/dashboard/home";
-    
-    //   const navigate= useNavigate();
-    //   const [isAdmin]= useAdmin();
-    //   const location= useLocation();
-    //   const from =location.state?.from?.pathname || '/'
+  
 
   
     
  
  const {signInUser}= useContext(AuthContext)
+ const  navigate= useNavigate()
+ const location= useLocation()
+
+
+//  const from =location.state?.from?.pathname || '/'
+   console.log("login state",location.state)
+
 
  const handleLogin =(e)=>{
     e.preventDefault()
@@ -33,9 +34,11 @@ const Login = () => {
     console.log(info)
     signInUser(email,password)
     .then(result=>{
+      
         const user = result.user
+        navigate('/')
          toast.success("Congratulation")
-       
+        
         console.log(user)
         
       
